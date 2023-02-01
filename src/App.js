@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import ExerciseForm from './ExerciseForm'
+import ExerciseHistory from './ExerciseHistory'
 
-function App() {
+const App = () => {
+  const [exercises, setExercises] = useState([]);
+
+  const addExercise = (exercise) => {
+    setExercises([...exercises, exercise]);
+  };
+
+  const removeExercise = (index) => {
+    setExercises(exercises.filter((exercise, i) => i !== index));
+  };
+
+  const clearExercises = () => {
+    setExercises([]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <div className="container">
+      <ExerciseForm addExercise={addExercise} />
+      <ExerciseHistory
+        exercises={exercises}
+        removeExercise={removeExercise}
+        clearExercises={clearExercises}
+      />
+      </div>
+      );
+      }
 
 export default App;
